@@ -1,0 +1,94 @@
+[build-system]
+requires = ["poetry-core>=1,<2"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "pytest-moto-fixtures"
+version = "0.0.0"
+description = "Fixtures for testing code that interacts with AWS"
+authors = ["Eduardo Klosowski <eduardo_klosowski@yahoo.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/eduardoklosowski/pytest-moto-fixtures"
+documentation = "http://pytest-moto-fixtures.readthedocs.io/"
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Environment :: Plugins",
+  "Framework :: Pytest",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Testing :: Mocking",
+  "Typing :: Typed",
+  "Private :: Do Not Upload",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+boto3 = "^1.35"
+moto = {version = "^5.0", extras = ["sqs"]}
+
+[tool.poetry.group.type.dependencies]
+boto3-stubs = {version = "^1.35", extras = ["sqs"]}
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.7"
+mypy = "^1.13"
+pytest = "^8.3"
+coverage = "^7.6"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^8.1"
+sphinx-rtd-theme = "^3.0"
+
+[tool.poetry.plugins.pytest11]
+moto_fixtures = "pytest_moto_fixtures.fixtures"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 119
+src = ["src", "tests"]
+
+[tool.ruff.format]
+line-ending = "lf"
+quote-style = "single"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["S311", "COM812", "ISC001", "ARG001"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/pytest_moto_fixtures/fixtures.py" = ["F401"]
+"tests/*.py" = ["D", "S101"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+
+[tool.mypy]
+warn_unused_configs = true
+show_column_numbers = true
+show_error_codes = true
+sqlite_cache = true
+strict = true
+plugins = []
+files = ["src/**/*.py", "tests/**/*.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if (typing\\.)?TYPE_CHECKING:",
+]

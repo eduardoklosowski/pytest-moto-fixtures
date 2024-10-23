@@ -1,0 +1,26 @@
+# Python
+*.py[cod]
+__pycache__
+
+# Development tools
+/.venv
+/poetry.lock
+/dist
+/.ruff_cache
+/.mypy_cache
+/.pytest_cache
+/.coverage
+/.coverage.*
+/htmlcov
+
+# Docs
+/docs/source/src
+/docs/build
+
+# Editors
+*.swp
+/.idea
+/.vscode
+
+# Others
+.DS_Store
