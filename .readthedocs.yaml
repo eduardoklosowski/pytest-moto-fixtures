@@ -9,11 +9,17 @@ build:
       - curl -sSL https://install.python-poetry.org | python3 - --version 1.8.4
       - $HOME/.local/bin/poetry config virtualenvs.create false
     pre_install:
-      - $HOME/.local/bin/poetry export --only=docs -o requirements.txt
+      - $HOME/.local/bin/poetry export --only=main,type,docs -o requirements.txt
+    pre_build:
+      - sphinx-apidoc --remove-old -f -o docs/source/src src
 
 python:
   install:
     - requirements: requirements.txt
+    - method: pip
+      path: .
+      extra_requirements:
+        - pytest
 
 sphinx:
   configuration: docs/source/conf.py

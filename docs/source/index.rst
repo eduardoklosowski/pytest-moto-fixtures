@@ -9,6 +9,12 @@ pytest-moto-fixtures documentation
 Getting Started
 ---------------
 
+Install ``pytest-moto-fixtures`` package from `PyPI <https://pypi.org/project/pytest-moto-fixtures/>`_:
+
+.. code-block:: shell
+
+    pip install pytest-moto-fixtures[pytest]
+
 **Code for test:**
 
 .. code-block:: python

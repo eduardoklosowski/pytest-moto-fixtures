@@ -2,6 +2,13 @@
 
 [pytest](https://docs.pytest.org/) fixtures for testing code that integrates with [AWS](https://aws.amazon.com/) using [moto](https://docs.getmoto.org/) as a mock.
 
+## Install
+
+Install `pytest-moto-fixtures` package from [PyPI](https://pypi.org/project/pytest-moto-fixtures/):
+
+```sh
+pip install pytest-moto-fixtures[pytest]
+```
 
 ## Examples of Use
 

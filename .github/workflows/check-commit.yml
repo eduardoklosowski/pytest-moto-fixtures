@@ -38,7 +38,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
-        run: poetry install --sync --only=main,type,dev
+        run: poetry install --sync --extras pytest --only=main,type,dev
 
       - name: Run lints
         run: make lint
@@ -72,7 +72,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
-        run: poetry install --sync --only=main,dev
+        run: poetry install --sync --extras pytest --only=main,dev
 
       - name: Run tests
         run: make test
@@ -102,7 +102,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
-        run: poetry install --sync --only=main,type,dev,docs
+        run: poetry install --sync --extras pytest --only=main,type,docs
 
       - name: Check build
         run: make docs

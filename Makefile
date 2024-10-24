@@ -20,7 +20,7 @@ build:
 .PHONY: init
 
 init:
-	poetry install --sync
+	poetry install --sync --extras pytest --with=docs
 
 
 # Format
@@ -76,7 +76,7 @@ test-coverage-report: .coverage
 .PHONY: docs docs-serve
 
 docs $(DOCS_DIR)/build:
-	poetry run sphinx-apidoc --remove-old -f -o $(DOCS_SRC_DIR)/source/src $(SRC_DIR)
+	poetry run sphinx-apidoc --remove-old -f -o $(DOCS_SRC_DIR)/src $(SRC_DIR)
 	(cd $(DOCS_DIR) && poetry run make html)
 
 docs-serve: $(DOCS_DIR)/build
