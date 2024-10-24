@@ -54,7 +54,7 @@ Install ``pytest-moto-fixtures`` package from `PyPI <https://pypi.org/project/py
 .. code-block:: python
 
     from random import randint
-    from pytest_moto_fixtures.clients.sqs import sqs_create_queue
+    from pytest_moto_fixtures.services.sqs import sqs_create_queue
 
     def test_example_with_context(sqs_client):
         values = [randint(1, 10) for _ in range(randint(3, 10))]
