@@ -27,14 +27,14 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.10"
 boto3 = "^1.35"
-moto = {version = "^5.0", optional = true, extras = ["sqs"]}
+moto = {version = "^5.0", optional = true, extras = ["sns", "sqs"]}
 pytest = {version = "^8.3", optional = true}
 
 [tool.poetry.extras]
 pytest = ["moto", "pytest"]
 
 [tool.poetry.group.type.dependencies]
-boto3-stubs = {version = "^1.35", extras = ["sqs"]}
+boto3-stubs = {version = "^1.35", extras = ["sns", "sqs"]}
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7"
