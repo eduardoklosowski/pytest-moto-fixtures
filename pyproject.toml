@@ -37,7 +37,7 @@ pytest = ["moto", "pytest"]
 boto3-stubs = {version = "^1.35", extras = ["sns", "sqs"]}
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.7"
+ruff = ">=0.7,<0.9"
 mypy = "^1.13"
 pytest = "*"
 coverage = "^7.6"
