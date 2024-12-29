@@ -1,10 +1,12 @@
 import os
 from typing import TYPE_CHECKING
 
+from pytest_moto_fixtures.services.s3 import S3Bucket
 from pytest_moto_fixtures.services.sns import SNSTopic
 from pytest_moto_fixtures.services.sqs import SQSQueue
 
 if TYPE_CHECKING:
+    from mypy_boto3_s3 import S3Client
     from mypy_boto3_sns import SNSClient
     from mypy_boto3_sqs import SQSClient
 
@@ -37,3 +39,8 @@ def test_sns_fifo_topic(sns_client: 'SNSClient', sns_fifo_topic: SNSTopic) -> No
     assert sns_fifo_topic.name.endswith('.fifo')
     topics = sns_client.list_topics()['Topics']
     assert sns_fifo_topic.arn in [topic['TopicArn'] for topic in topics]
+
+
+def test_s3_bucket(s3_client: 'S3Client', s3_bucket: S3Bucket) -> None:
+    buckets = s3_client.list_buckets(Prefix=s3_bucket.name)['Buckets']
+    assert s3_bucket.name in [bucket['Name'] for bucket in buckets]
