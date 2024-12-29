@@ -8,10 +8,12 @@ import boto3
 import pytest
 from moto import mock_aws
 
+from pytest_moto_fixtures.services.s3 import S3Bucket, s3_create_bucket
 from pytest_moto_fixtures.services.sns import SNSTopic, sns_create_fifo_topic, sns_create_topic
 from pytest_moto_fixtures.services.sqs import SQSQueue, sqs_create_fifo_queue, sqs_create_queue
 
 if TYPE_CHECKING:
+    from mypy_boto3_s3 import S3Client
     from mypy_boto3_sns import SNSClient
     from mypy_boto3_sqs import SQSClient
 
@@ -64,3 +66,16 @@ def sns_fifo_topic(sns_client: 'SNSClient', sqs_client: 'SQSClient') -> Iterator
     """A fifo topic in the SNS service."""
     with sns_create_fifo_topic(sns_client=sns_client, sqs_client=sqs_client) as topic:
         yield topic
+
+
+@pytest.fixture
+def s3_client(aws_config: None) -> 'S3Client':
+    """S3 Client."""
+    return boto3.client('s3')
+
+
+@pytest.fixture
+def s3_bucket(s3_client: 'S3Client') -> Iterator[S3Bucket]:
+    """A bucket in S3 service."""
+    with s3_create_bucket(s3_client=s3_client) as bucket:
+        yield bucket
