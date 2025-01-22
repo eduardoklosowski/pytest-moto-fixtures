@@ -33,9 +33,14 @@ class SQSQueue:
             Number of messages in queue.
         """
         attributes = self.client.get_queue_attributes(
-            QueueUrl=self.url, AttributeNames=['ApproximateNumberOfMessages']
+            QueueUrl=self.url,
+            AttributeNames=[
+                'ApproximateNumberOfMessages',
+                'ApproximateNumberOfMessagesDelayed',
+                'ApproximateNumberOfMessagesNotVisible',
+            ],
         )['Attributes']
-        return int(attributes['ApproximateNumberOfMessages'])
+        return sum(int(value) for value in attributes.values())
 
     def send_message(
         self,

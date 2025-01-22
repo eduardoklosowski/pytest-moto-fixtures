@@ -36,6 +36,27 @@ class TestSQSQueue:
 
             assert len(sqs_queue) == expected
 
+    def test_len_delayed(self, sqs_queue: SQSQueue) -> None:
+        messages = [randstr() for _ in range(randint(3, 10))]
+
+        for expected, message in enumerate(messages, start=1):
+            sqs_queue.client.send_message(QueueUrl=sqs_queue.url, MessageBody=message, DelaySeconds=10)
+
+            assert len(sqs_queue) == expected
+
+    def test_len_not_visible(self, sqs_queue: SQSQueue) -> None:
+        messages = [randstr() for _ in range(randint(3, 10))]
+
+        sqs_queue.client.send_message_batch(
+            QueueUrl=sqs_queue.url,
+            Entries=[{'Id': str(i), 'MessageBody': message} for i, message in enumerate(messages)],
+        )
+
+        for _ in messages:
+            sqs_queue.client.receive_message(QueueUrl=sqs_queue.url, MaxNumberOfMessages=1, VisibilityTimeout=10)
+
+            assert len(sqs_queue) == len(messages)
+
     def test_send_message(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
