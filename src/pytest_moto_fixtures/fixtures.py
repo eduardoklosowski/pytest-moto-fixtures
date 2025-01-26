@@ -8,11 +8,13 @@ import boto3
 import pytest
 from moto import mock_aws
 
+from pytest_moto_fixtures.services.eventbridge import EventBridgeBus, eventbridge_create_bus
 from pytest_moto_fixtures.services.s3 import S3Bucket, s3_create_bucket
 from pytest_moto_fixtures.services.sns import SNSTopic, sns_create_fifo_topic, sns_create_topic
 from pytest_moto_fixtures.services.sqs import SQSQueue, sqs_create_fifo_queue, sqs_create_queue
 
 if TYPE_CHECKING:
+    from mypy_boto3_events import EventBridgeClient
     from mypy_boto3_s3 import S3Client
     from mypy_boto3_sns import SNSClient
     from mypy_boto3_sqs import SQSClient
@@ -79,3 +81,16 @@ def s3_bucket(s3_client: 'S3Client') -> Iterator[S3Bucket]:
     """A bucket in S3 service."""
     with s3_create_bucket(s3_client=s3_client) as bucket:
         yield bucket
+
+
+@pytest.fixture
+def eventbridge_client(aws_config: None) -> 'EventBridgeClient':
+    """Event Bridge client."""
+    return boto3.client('events')
+
+
+@pytest.fixture
+def eventbridge_bus(eventbridge_client: 'EventBridgeClient', sqs_client: 'SQSClient') -> Iterator[EventBridgeBus]:
+    """A bus in the Event Bridge service."""
+    with eventbridge_create_bus(eventbridge_client=eventbridge_client, sqs_client=sqs_client) as bus:
+        yield bus
