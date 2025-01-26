@@ -34,7 +34,7 @@ pytest = {version = "^8.3", optional = true}
 pytest = ["moto", "pytest"]
 
 [tool.poetry.group.type.dependencies]
-boto3-stubs = {version = "^1.35", extras = ["events", "s3", "sns", "sqs"]}
+types-boto3 = {version = "*", extras = ["boto3", "events", "s3", "sns", "sqs"]}
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7"

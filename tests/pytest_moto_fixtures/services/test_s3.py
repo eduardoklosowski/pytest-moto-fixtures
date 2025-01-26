@@ -8,7 +8,7 @@ from pytest_moto_fixtures.services.s3 import S3Bucket, s3_create_bucket
 from pytest_moto_fixtures.utils import randstr
 
 if TYPE_CHECKING:
-    from mypy_boto3_s3 import S3Client
+    from types_boto3_s3 import S3Client
 
 
 class TestS3Bucket:

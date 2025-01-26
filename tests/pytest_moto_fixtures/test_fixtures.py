@@ -7,10 +7,10 @@ from pytest_moto_fixtures.services.sns import SNSTopic
 from pytest_moto_fixtures.services.sqs import SQSQueue
 
 if TYPE_CHECKING:
-    from mypy_boto3_events import EventBridgeClient
-    from mypy_boto3_s3 import S3Client
-    from mypy_boto3_sns import SNSClient
-    from mypy_boto3_sqs import SQSClient
+    from types_boto3_events import EventBridgeClient
+    from types_boto3_s3 import S3Client
+    from types_boto3_sns import SNSClient
+    from types_boto3_sqs import SQSClient
 
 
 def test_aws_config(aws_config: None) -> None:

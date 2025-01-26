@@ -8,9 +8,9 @@ from pytest_moto_fixtures.services.sqs import SQSQueue
 from pytest_moto_fixtures.utils import randstr
 
 if TYPE_CHECKING:
-    from mypy_boto3_sns import SNSClient
-    from mypy_boto3_sns.type_defs import TagTypeDef
-    from mypy_boto3_sqs import SQSClient
+    from types_boto3_sns import SNSClient
+    from types_boto3_sns.type_defs import TagTypeDef
+    from types_boto3_sqs import SQSClient
 
 
 class TestSNSTopic:

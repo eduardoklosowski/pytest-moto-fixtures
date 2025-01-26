@@ -13,10 +13,10 @@ from pytest_moto_fixtures.utils import NoArgs, randstr
 from .sqs import SQSQueue, sqs_create_queue
 
 if TYPE_CHECKING:
-    from mypy_boto3_sns import SNSClient
-    from mypy_boto3_sns.type_defs import MessageAttributeValueTypeDef, TagTypeDef
-    from mypy_boto3_sqs import SQSClient
-    from mypy_boto3_sqs.literals import QueueAttributeNameType
+    from types_boto3_sns import SNSClient
+    from types_boto3_sns.type_defs import MessageAttributeValueTypeDef, TagTypeDef
+    from types_boto3_sqs import SQSClient
+    from types_boto3_sqs.literals import QueueAttributeNameType
 
     class MessageAttributeTypeDef(TypedDict):
         """Type of message attribute in SNS."""

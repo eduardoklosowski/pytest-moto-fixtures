@@ -12,9 +12,9 @@ from pytest_moto_fixtures.utils import NoArgs, randstr
 from .sqs import SQSQueue, sqs_create_queue
 
 if TYPE_CHECKING:
-    from mypy_boto3_events import EventBridgeClient
-    from mypy_boto3_events.type_defs import PutEventsRequestEntryTypeDef, TagTypeDef
-    from mypy_boto3_sqs import SQSClient
+    from types_boto3_events import EventBridgeClient
+    from types_boto3_events.type_defs import PutEventsRequestEntryTypeDef, TagTypeDef
+    from types_boto3_sqs import SQSClient
 
     EventTypeDef = TypedDict(
         'EventTypeDef',

@@ -6,8 +6,8 @@ from pytest_moto_fixtures.services.sqs import SQSQueue, sqs_create_fifo_queue, s
 from pytest_moto_fixtures.utils import randstr
 
 if TYPE_CHECKING:
-    from mypy_boto3_sqs import SQSClient
-    from mypy_boto3_sqs.literals import QueueAttributeNameType
+    from types_boto3_sqs import SQSClient
+    from types_boto3_sqs.literals import QueueAttributeNameType
 
 
 class TestSQSQueue:

@@ -9,9 +9,9 @@ from typing import TYPE_CHECKING, Any, TypedDict
 from pytest_moto_fixtures.utils import NoArgs, randstr
 
 if TYPE_CHECKING:
-    from mypy_boto3_sqs import SQSClient
-    from mypy_boto3_sqs.literals import QueueAttributeNameType
-    from mypy_boto3_sqs.type_defs import MessageTypeDef
+    from types_boto3_sqs import SQSClient
+    from types_boto3_sqs.literals import QueueAttributeNameType
+    from types_boto3_sqs.type_defs import MessageTypeDef
 
 
 @dataclass(kw_only=True, frozen=True)

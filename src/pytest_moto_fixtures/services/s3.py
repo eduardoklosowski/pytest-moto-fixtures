@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING
 from pytest_moto_fixtures.utils import NoArgs, randstr
 
 if TYPE_CHECKING:
-    from mypy_boto3_s3 import S3Client
-    from mypy_boto3_s3.type_defs import BlobTypeDef, GetObjectOutputTypeDef, ObjectTypeDef
+    from types_boto3_s3 import S3Client
+    from types_boto3_s3.type_defs import BlobTypeDef, GetObjectOutputTypeDef, ObjectTypeDef
 
 
 @dataclass(kw_only=True, frozen=True)
