@@ -22,7 +22,7 @@ class TestSQSQueue:
         assert sut.arn == arn
         assert sut.url == url
 
-    def test_len(self, sqs_queue: 'SQSQueue') -> None:
+    def test_len(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for expected, message in enumerate(messages, start=1):
@@ -36,7 +36,7 @@ class TestSQSQueue:
 
             assert len(sqs_queue) == expected
 
-    def test_send_message(self, sqs_queue: 'SQSQueue') -> None:
+    def test_send_message(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -45,7 +45,7 @@ class TestSQSQueue:
         received = sqs_queue.client.receive_message(QueueUrl=sqs_queue.url, MaxNumberOfMessages=10)['Messages']
         assert [message['Body'] for message in received] == messages
 
-    def test_send_message_with_args(self, sqs_queue: 'SQSQueue') -> None:
+    def test_send_message_with_args(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -54,7 +54,7 @@ class TestSQSQueue:
         received = sqs_queue.client.receive_message(QueueUrl=sqs_queue.url, MaxNumberOfMessages=10)['Messages']
         assert [message['Body'] for message in received] == messages
 
-    def test_send_message_with_delay(self, sqs_queue: 'SQSQueue') -> None:
+    def test_send_message_with_delay(self, sqs_queue: SQSQueue) -> None:
         message = randstr()
 
         sqs_queue.send_message(body=message, delay_seconds=1)
@@ -64,12 +64,12 @@ class TestSQSQueue:
         ][0]
         assert received['Body'] == message
 
-    def test_receive_message_without_message_in_queue(self, sqs_queue: 'SQSQueue') -> None:
+    def test_receive_message_without_message_in_queue(self, sqs_queue: SQSQueue) -> None:
         returned = sqs_queue.receive_message()
 
         assert returned is None
 
-    def test_receive_message_with_message_in_queue(self, sqs_queue: 'SQSQueue') -> None:
+    def test_receive_message_with_message_in_queue(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -85,7 +85,7 @@ class TestSQSQueue:
 
         assert returned is None
 
-    def test_iter_over_messages_in_queue(self, sqs_queue: 'SQSQueue') -> None:
+    def test_iter_over_messages_in_queue(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -94,7 +94,7 @@ class TestSQSQueue:
         for message, returned in zip(messages, sqs_queue, strict=True):
             assert returned['Body'] == message
 
-    def test_purge_queue(self, sqs_queue: 'SQSQueue') -> None:
+    def test_purge_queue(self, sqs_queue: SQSQueue) -> None:
         for _ in range(randint(3, 10)):
             sqs_queue.client.send_message(QueueUrl=sqs_queue.url, MessageBody=randstr())
         assert len(sqs_queue) != 0
@@ -105,7 +105,7 @@ class TestSQSQueue:
 
 
 class TestSQSFifoQueue:
-    def test_len(self, sqs_fifo_queue: 'SQSQueue') -> None:
+    def test_len(self, sqs_fifo_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for expected, message in enumerate(messages, start=1):
@@ -124,7 +124,7 @@ class TestSQSFifoQueue:
 
             assert len(sqs_fifo_queue) == expected
 
-    def test_send_message(self, sqs_fifo_queue: 'SQSQueue') -> None:
+    def test_send_message(self, sqs_fifo_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -135,12 +135,12 @@ class TestSQSFifoQueue:
         ]
         assert [message['Body'] for message in received] == messages
 
-    def test_receive_message_without_message_in_queue(self, sqs_fifo_queue: 'SQSQueue') -> None:
+    def test_receive_message_without_message_in_queue(self, sqs_fifo_queue: SQSQueue) -> None:
         returned = sqs_fifo_queue.receive_message()
 
         assert returned is None
 
-    def test_receive_message_with_message_in_queue(self, sqs_fifo_queue: 'SQSQueue') -> None:
+    def test_receive_message_with_message_in_queue(self, sqs_fifo_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -161,7 +161,7 @@ class TestSQSFifoQueue:
 
         assert returned is None
 
-    def test_iter_over_messages_in_queue(self, sqs_fifo_queue: 'SQSQueue') -> None:
+    def test_iter_over_messages_in_queue(self, sqs_fifo_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -175,7 +175,7 @@ class TestSQSFifoQueue:
         for message, returned in zip(messages, sqs_fifo_queue, strict=True):
             assert returned['Body'] == message
 
-    def test_purge_queue(self, sqs_fifo_queue: 'SQSQueue') -> None:
+    def test_purge_queue(self, sqs_fifo_queue: SQSQueue) -> None:
         for message in (randstr() for _ in range(randint(3, 10))):
             sqs_fifo_queue.client.send_message(
                 QueueUrl=sqs_fifo_queue.url,
