@@ -20,7 +20,7 @@ build:
 .PHONY: init
 
 init:
-	poetry install --sync --extras pytest --with=docs
+	poetry sync --extras=pytest --with=docs
 
 
 # Format

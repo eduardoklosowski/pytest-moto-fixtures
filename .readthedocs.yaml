@@ -6,7 +6,7 @@ build:
     python: "3.10"
   jobs:
     post_create_environment:
-      - curl -sSL https://install.python-poetry.org | python3 - --version 1.8.4
+      - curl -sSL https://install.python-poetry.org | python3 - --version 2.0.1
       - $HOME/.local/bin/poetry config virtualenvs.create false
     pre_install:
       - $HOME/.local/bin/poetry export --only=main,type,docs -o requirements.txt
