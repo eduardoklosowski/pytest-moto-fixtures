@@ -1,9 +1,10 @@
 """Access SQS service."""
 
+import json
 from collections.abc import Iterator, Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, TypedDict
+from typing import TYPE_CHECKING, Any, TypedDict
 
 from pytest_moto_fixtures.utils import NoArgs, randstr
 
@@ -45,7 +46,7 @@ class SQSQueue:
     def send_message(
         self,
         *,
-        body: str,
+        body: str | dict[Any, Any],
         delay_seconds: int | NoArgs = NoArgs.NO_ARG,
         deduplication_id: str | NoArgs = NoArgs.NO_ARG,
         group_id: str | NoArgs = NoArgs.NO_ARG,
@@ -53,11 +54,13 @@ class SQSQueue:
         """Send message to queue.
 
         Args:
-            body: Message body.
+            body: Message body. If a dict is received, it will be converted to JSON string.
             delay_seconds: Message delivery delay in seconds.
             deduplication_id: Identifier to check for duplicate messages.
             group_id: Identifier to group messages that should be delivered sequentially.
         """
+        if not isinstance(body, str):
+            body = json.dumps(body)
         args = _SendMessageArgs(QueueUrl=self.url, MessageBody=body)
         if not isinstance(delay_seconds, NoArgs):
             args['DelaySeconds'] = delay_seconds

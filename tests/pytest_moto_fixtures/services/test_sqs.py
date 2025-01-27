@@ -1,3 +1,4 @@
+import json
 from random import randint
 from typing import TYPE_CHECKING
 
@@ -57,7 +58,7 @@ class TestSQSQueue:
 
             assert len(sqs_queue) == len(messages)
 
-    def test_send_message(self, sqs_queue: SQSQueue) -> None:
+    def test_send_message_with_str(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
 
         for message in messages:
@@ -65,6 +66,15 @@ class TestSQSQueue:
 
         received = sqs_queue.client.receive_message(QueueUrl=sqs_queue.url, MaxNumberOfMessages=10)['Messages']
         assert [message['Body'] for message in received] == messages
+
+    def test_send_message_with_dict(self, sqs_queue: SQSQueue) -> None:
+        messages = [{randstr(): randstr() for _ in range(randint(1, 3))} for _ in range(randint(3, 10))]
+
+        for message in messages:
+            sqs_queue.send_message(body=message)
+
+        received = sqs_queue.client.receive_message(QueueUrl=sqs_queue.url, MaxNumberOfMessages=10)['Messages']
+        assert [json.loads(message['Body']) for message in received] == messages
 
     def test_send_message_with_args(self, sqs_queue: SQSQueue) -> None:
         messages = [randstr() for _ in range(randint(3, 10))]
