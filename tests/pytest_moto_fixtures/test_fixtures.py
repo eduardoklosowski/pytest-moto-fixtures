@@ -1,5 +1,6 @@
 import os
 from typing import TYPE_CHECKING
+from unittest.mock import patch
 
 import boto3
 
@@ -24,6 +25,15 @@ def test_aws_config(aws_config: None) -> None:
 def test_aws_client(aws_config: None) -> None:
     client = boto3.client('sqs')
     client.list_queues()
+
+
+def test_aws_client_with_endpoint_url_in_environment(aws_config: None) -> None:
+    environ = {
+        'AWS_ENDPOINT_URL': 'http://invalid:123',
+    }
+    with patch.dict('os.environ', environ):
+        client = boto3.client('sqs')
+        client.list_queues()
 
 
 def test_sqs_queue(sqs_client: 'SQSClient', sqs_queue: SQSQueue) -> None:

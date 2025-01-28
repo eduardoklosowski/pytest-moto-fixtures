@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 def aws_config() -> Iterator[None]:
     """Configure AWS mock."""
     config = {
+        'AWS_IGNORE_CONFIGURED_ENDPOINT_URLS': 'true',
         'AWS_DEFAULT_REGION': 'us-east-1',
     }
     with patch.dict('os.environ', config), mock_aws():
