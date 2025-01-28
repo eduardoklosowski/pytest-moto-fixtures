@@ -1,6 +1,8 @@
 import os
 from typing import TYPE_CHECKING
 
+import boto3
+
 from pytest_moto_fixtures.services.eventbridge import EventBridgeBus
 from pytest_moto_fixtures.services.s3 import S3Bucket
 from pytest_moto_fixtures.services.sns import SNSTopic
@@ -14,9 +16,14 @@ if TYPE_CHECKING:
 
 
 def test_aws_config(aws_config: None) -> None:
-    assert 'AWS_ACCESS_KEY_ID' in os.environ
-    assert 'AWS_SECRET_ACCESS_KEY' in os.environ
-    assert os.environ['AWS_DEFAULT_REGION'] == 'us-east-1'
+    assert os.environ.get('AWS_ACCESS_KEY_ID')
+    assert os.environ.get('AWS_SECRET_ACCESS_KEY')
+    assert os.environ.get('AWS_DEFAULT_REGION') == 'us-east-1'
+
+
+def test_aws_client(aws_config: None) -> None:
+    client = boto3.client('sqs')
+    client.list_queues()
 
 
 def test_sqs_queue(sqs_client: 'SQSClient', sqs_queue: SQSQueue) -> None:
