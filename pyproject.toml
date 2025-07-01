@@ -50,7 +50,7 @@ classifiers = [
 types-boto3 = {version = "*", extras = ["boto3", "events", "s3", "sns", "sqs"]}
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.9"
+ruff = "^0.12"
 mypy = "^1.14"
 pytest = "*"
 coverage = "^7.6"
