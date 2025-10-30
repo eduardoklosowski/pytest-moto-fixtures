@@ -51,7 +51,7 @@ lint-mypy:
 	poetry run mypy --show-error-context --pretty $(SRC_DIR) $(TESTS_DIR)
 
 lint-docs:
-ifneq ($(shell which sphinx-build),)
+ifneq ($(shell poetry run which sphinx-build),)
 	poetry run sphinx-apidoc --remove-old -f -o $(DOCS_SRC_DIR)/src $(SRC_DIR)
 	poetry run sphinx-build -b dummy $(DOCS_SRC_DIR) $(DOCS_OUTPUT_DIR)
 endif
