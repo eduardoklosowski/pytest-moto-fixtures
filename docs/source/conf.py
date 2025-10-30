@@ -9,7 +9,7 @@
 
 project = 'pytest-moto-fixtures'
 author = 'Eduardo Klosowski'
-project_copyright = f'2024, {author}'
+project_copyright = f'2024-2025, {author}'
 
 
 # -- General configuration ---------------------------------------------------
