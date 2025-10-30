@@ -8,13 +8,13 @@ name = "pytest-moto-fixtures"
 version = "0.0.0"
 description = "Fixtures for testing code that interacts with AWS"
 authors = [
-  {name = "Eduardo Klosowski", email = "eduardo_klosowski@yahoo.com"},
+    {name = "Eduardo Klosowski", email = "eduardo_klosowski@yahoo.com"},
 ]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-  "boto3 (>=1.35,<2)",
+    "boto3 (>=1.35,<2)",
 ]
 
 [project.urls]
@@ -24,8 +24,8 @@ documentation = "http://pytest-moto-fixtures.readthedocs.io/"
 
 [project.optional-dependencies]
 pytest = [
-  "moto[events,s3,sns,sqs] (>=5.0,<6)",
-  "pytest (>=8.3,<9)",
+    "moto[events,s3,sns,sqs] (>=5.0,<6)",
+    "pytest (>=8.3,<9)",
 ]
 
 [project.entry-points.pytest11]
@@ -34,16 +34,16 @@ moto_fixtures = "pytest_moto_fixtures.fixtures"
 [tool.poetry]
 requires-poetry = ">=2.0,<3"
 classifiers = [
-  "Development Status :: 1 - Planning",
-  "Environment :: Plugins",
-  "Framework :: Pytest",
-  "Intended Audience :: Developers",
-  "Operating System :: OS Independent",
-  "Topic :: Software Development",
-  "Topic :: Software Development :: Testing",
-  "Topic :: Software Development :: Testing :: Mocking",
-  "Typing :: Typed",
-  "Private :: Do Not Upload",
+    "Development Status :: 1 - Planning",
+    "Environment :: Plugins",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Testing :: Mocking",
+    "Typing :: Typed",
+    "Private :: Do Not Upload",
 ]
 
 [tool.poetry.group.type.dependencies]
@@ -103,6 +103,6 @@ branch = true
 
 [tool.coverage.report]
 exclude_lines = [
-  "pragma: no cover",
-  "if (typing\\.)?TYPE_CHECKING:",
+    "pragma: no cover",
+    "if (typing\\.)?TYPE_CHECKING:",
 ]
