@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core>=2,<3"]
+requires = ["poetry-core (>=2.2.1,<3)"]
 build-backend = "poetry.core.masonry.api"
 
 [project]
@@ -10,7 +10,7 @@ description = "Fixtures for testing code that interacts with AWS"
 authors = [
     {name = "Eduardo Klosowski", email = "eduardo_klosowski@yahoo.com"},
 ]
-license = {text = "MIT"}
+license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -19,8 +19,8 @@ dependencies = [
 
 [project.urls]
 repository = "https://github.com/eduardoklosowski/pytest-moto-fixtures.git"
-releasenotes = "https://github.com/eduardoklosowski/pytest-moto-fixtures/releases"
-documentation = "http://pytest-moto-fixtures.readthedocs.io/"
+documentation = "https://pytest-moto-fixtures.readthedocs.io/"
+"Release notes" = "https://github.com/eduardoklosowski/pytest-moto-fixtures/releases"
 
 [project.optional-dependencies]
 pytest = [
@@ -31,8 +31,23 @@ pytest = [
 [project.entry-points.pytest11]
 moto_fixtures = "pytest_moto_fixtures.fixtures"
 
+[dependency-groups]
+type = [
+    "types-boto3[boto3,events,s3,sns,sqs]",
+]
+dev = [
+    "ruff (>=0.9,<0.10)",
+    "mypy (>=1.14,<2)",
+    "pytest (>=8.3,<9)",
+    "coverage (>=7.6,<8)",
+]
+docs = [
+    "sphinx (>=8.1,<9)",
+    "sphinx-rtd-theme (>=3.0,<4)",
+]
+
 [tool.poetry]
-requires-poetry = ">=2.0,<3"
+requires-poetry = ">=2.2.1,<3"
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Plugins",
@@ -46,21 +61,8 @@ classifiers = [
     "Private :: Do Not Upload",
 ]
 
-[tool.poetry.group.type.dependencies]
-types-boto3 = {version = "*", extras = ["boto3", "events", "s3", "sns", "sqs"]}
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.9"
-mypy = "^1.14"
-pytest = "*"
-coverage = "^7.6"
-
 [tool.poetry.group.docs]
 optional = true
-
-[tool.poetry.group.docs.dependencies]
-sphinx = "^8.1"
-sphinx-rtd-theme = "^3.0"
 
 [tool.ruff]
 target-version = "py310"
