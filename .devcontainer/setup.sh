@@ -3,6 +3,7 @@
 set -xe
 
 # Config poetry
+pipx install poetry==2.0.1
 poetry config virtualenvs.in-project true
 [ -e .venv ] || poetry env use /usr/local/bin/python
 
