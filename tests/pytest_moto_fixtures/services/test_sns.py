@@ -75,10 +75,10 @@ class TestSNSTopic:
 
         for message in messages:
             sns_topic.publish_message(
-                message=message['Message'],
+                message=str(message['Message']),
                 attributes={
                     name: {'DataType': 'String', 'StringValue': value['Value']}
-                    for name, value in message['MessageAttributes'].items()
+                    for name, value in dict(message['MessageAttributes']).items()
                 },
             )
 
