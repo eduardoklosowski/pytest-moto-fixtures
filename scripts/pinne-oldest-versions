@@ -1,0 +1,50 @@
+#!/usr/bin/env -S pipx run --
+#
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "tomlkit==0.13.3",
+# ]
+# ///
+
+import re
+import sys
+from pathlib import Path
+
+import tomlkit
+
+RE_DEPENDENCIE = re.compile(r'^(?P<package>[0-9A-Za-z-_]+(\[.*?])?).*>=(?P<version>[^,]+)')
+
+
+def oldest_version(dependencie: str) -> str:
+    r = RE_DEPENDENCIE.match(dependencie)
+    if not r or not r.group('version'):
+        return dependencie
+    return f"{r.group('package')}=={r.group('version')}"
+
+
+def pinne_oldest_versions(filename: str) -> str:
+    file_path = Path(filename)
+    pyproject = tomlkit.parse(file_path.read_text())
+
+    for i, dep in enumerate(pyproject['project']['dependencies']):
+        pyproject['project']['dependencies'][i] = oldest_version(dep)
+    for group, deps in pyproject['project']['optional-dependencies'].items():
+        for i, dep in enumerate(deps):
+            pyproject['project']['optional-dependencies'][group][i] = oldest_version(dep)
+    for group, deps in pyproject['dependency-groups'].items():
+        for i, dep in enumerate(deps):
+            pyproject['dependency-groups'][group][i] = oldest_version(dep)
+
+    return tomlkit.dumps(pyproject)
+
+
+def main():
+    if len(sys.argv) < 2:
+        print(f'Usage: ./{sys.argv[0]} <pyproject.toml>', file=sys.stderr)
+        sys.exit(2)
+    print(pinne_oldest_versions(sys.argv[1]))
+
+
+if __name__ == '__main__':
+    main()
