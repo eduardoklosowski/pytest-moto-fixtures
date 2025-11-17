@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [project]
 dynamic = ["classifiers"]
 name = "pytest-moto-fixtures"
-version = "0.0.0"
+version = "0.0.1a4"
 description = "Fixtures for testing code that interacts with AWS"
 authors = [
     {name = "Eduardo Klosowski", email = "eduardo_klosowski@yahoo.com"},
@@ -58,7 +58,6 @@ classifiers = [
     "Topic :: Software Development :: Testing",
     "Topic :: Software Development :: Testing :: Mocking",
     "Typing :: Typed",
-    "Private :: Do Not Upload",
 ]
 
 [tool.poetry.group.docs]
