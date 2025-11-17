@@ -180,7 +180,7 @@ jobs:
         run: make docs
 
   docs-old-libs:
-    name: Check Docs
+    name: Check Docs (Oldest Libs)
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
