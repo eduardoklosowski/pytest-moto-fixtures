@@ -23,8 +23,8 @@ jobs:
       - name: Setup poetry
         run: pipx install poetry==2.2.1
 
-      - name: Generate datefile
-        run: echo "lint-$(date +%U)" > datefile
+      - name: Generate cachetag
+        run: echo "lint-$(date +%U)" > cachetag
 
       - name: Setup python
         id: setup-python
@@ -34,7 +34,7 @@ jobs:
           cache: poetry
           cache-dependency-path: |
             pyproject.toml
-            datefile
+            cachetag
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
@@ -62,6 +62,7 @@ jobs:
           mv pyproject.toml pyproject.toml.orig
           ./scripts/pinne-oldest-versions pyproject.toml.orig > pyproject.toml
           rm -rf poetry.lock
+          echo "lint-old" > cachetag
 
       - name: Setup python
         id: setup-python
@@ -71,6 +72,7 @@ jobs:
           cache: poetry
           cache-dependency-path: |
             pyproject.toml
+            cachetag
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
@@ -93,8 +95,8 @@ jobs:
       - name: Setup poetry
         run: pipx install poetry==2.2.1
 
-      - name: Generate datefile
-        run: echo "test-$(date +%U)" > datefile
+      - name: Generate cachetag
+        run: echo "test-$(date +%U)" > cachetag
 
       - name: Setup python
         id: setup-python
@@ -104,7 +106,7 @@ jobs:
           cache: poetry
           cache-dependency-path: |
             pyproject.toml
-            datefile
+            cachetag
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
@@ -132,6 +134,7 @@ jobs:
           mv pyproject.toml pyproject.toml.orig
           ./scripts/pinne-oldest-versions pyproject.toml.orig > pyproject.toml
           rm -rf poetry.lock
+          echo "test-old" > cachetag
 
       - name: Setup python
         id: setup-python
@@ -141,6 +144,7 @@ jobs:
           cache: poetry
           cache-dependency-path: |
             pyproject.toml
+            cachetag
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
@@ -159,8 +163,8 @@ jobs:
       - name: Setup poetry
         run: pipx install poetry==2.2.1
 
-      - name: Generate datefile
-        run: echo "docs-$(date +%U)" > datefile
+      - name: Generate cachetag
+        run: echo "docs-$(date +%U)" > cachetag
 
       - name: Setup python
         id: setup-python
@@ -170,7 +174,7 @@ jobs:
           cache: poetry
           cache-dependency-path: |
             pyproject.toml
-            datefile
+            cachetag
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
@@ -194,6 +198,7 @@ jobs:
           mv pyproject.toml pyproject.toml.orig
           ./scripts/pinne-oldest-versions pyproject.toml.orig > pyproject.toml
           rm -rf poetry.lock
+          echo "docs-old" > cachetag
 
       - name: Setup python
         id: setup-python
@@ -203,6 +208,7 @@ jobs:
           cache: poetry
           cache-dependency-path: |
             pyproject.toml
+            cachetag
 
       - name: Install dependencies
         if: steps.setup-python.outputs.cache-hit != 'true'
